@@ -46,6 +46,14 @@ class ProductsViewState extends ConsumerState<_ProductsView> {
 
     // TODO: InfiniteScroll pending
     ref.read(productsProvider.notifier).loadNextPage();
+
+    // Scroll Infinito
+    scrollController.addListener(() {
+      if (scrollController.position.pixels + 400 >=
+          scrollController.position.maxScrollExtent) {
+        ref.read(productsProvider.notifier).loadNextPage();
+      }
+    });
   }
 
   @override
@@ -70,6 +78,7 @@ class ProductsViewState extends ConsumerState<_ProductsView> {
           final product = productsState.products[index];
           return ProductCard(product: product);
         },
+        controller: scrollController,
       ),
     );
   }
