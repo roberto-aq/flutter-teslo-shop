@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teslo_shop_app/features/products/presentation/providers/providers.dart';
+import 'package:teslo_shop_app/features/shared/widgets/widgets.dart';
 
 class ProductScreen extends ConsumerWidget {
   final String productId;
@@ -21,9 +22,7 @@ class ProductScreen extends ConsumerWidget {
           )
         ],
       ),
-      body: Center(
-        child: Text('Hola Mundo'),
-      ),
+      body: FullScreenLoader(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: const Icon(Icons.save_as_outlined),
