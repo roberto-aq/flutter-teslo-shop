@@ -25,7 +25,9 @@ class ProductsScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         label: const Text('Nuevo producto'),
         icon: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          context.push('/product/new');
+        },
       ),
     );
   }
@@ -45,7 +47,6 @@ class ProductsViewState extends ConsumerState<_ProductsView> {
   void initState() {
     super.initState();
 
-    // TODO: InfiniteScroll pending
     ref.read(productsProvider.notifier).loadNextPage();
 
     // Scroll Infinito

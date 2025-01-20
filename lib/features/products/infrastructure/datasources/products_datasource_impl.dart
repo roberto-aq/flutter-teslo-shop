@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:teslo_shop_app/config/config.dart';
 import 'package:teslo_shop_app/features/products/domain/domain.dart';
-import 'package:teslo_shop_app/features/products/infrastructure/errors/products_errors.dart';
+// import 'package:teslo_shop_app/features/products/infrastructure/errors/products_errors.dart';
 import 'package:teslo_shop_app/features/products/infrastructure/infrastructure.dart';
 
 class ProductsDatasourceImpl extends ProductsDatasource {
@@ -18,7 +18,7 @@ class ProductsDatasourceImpl extends ProductsDatasource {
     try {
       final String? productId = productLike['id'];
       final String method = (productId == null) ? 'POST' : 'PATCH';
-      final String url = (productId == null) ? '/post' : '/products/$productId';
+      final String url = (productId == null) ? '/products' : '/products/$productId';
 
       productLike.remove('id');
 
