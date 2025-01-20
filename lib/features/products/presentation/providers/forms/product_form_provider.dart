@@ -2,17 +2,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 import 'package:teslo_shop_app/config/config.dart';
 import 'package:teslo_shop_app/features/products/domain/domain.dart';
+import 'package:teslo_shop_app/features/products/presentation/providers/providers.dart';
 import 'package:teslo_shop_app/features/shared/shared.dart';
 
 final productFormProvider = StateNotifierProvider.autoDispose
     .family<ProductFormNotifier, ProductFormState, Product>((ref, product) {
-  // TODO: createUpdateProduct
+  // final createUpdateCallback =
+  //     ref.watch(productsRepositoryProvider).createUpdateProduct;
+  final createUpdateCallback =
+      ref.watch(productsProvider.notifier).createOrUpdateProduct;
 
-  return ProductFormNotifier(product: product);
+  return ProductFormNotifier(
+      product: product, onSubmitCallback: createUpdateCallback);
 });
 
 class ProductFormNotifier extends StateNotifier<ProductFormState> {
-  final void Function(Map<String, dynamic>)? onSubmitCallback;
+  final Future<bool> Function(Map<String, dynamic>)? onSubmitCallback;
 
   ProductFormNotifier({this.onSubmitCallback, required Product product})
       : super(ProductFormState(
@@ -50,8 +55,11 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
           .toList(),
     };
 
-    // TODO:
-    return true;
+    try {
+      return await onSubmitCallback!(productLike);
+    } catch (e) {
+      return false;
+    }
   }
 
   void _touchedEverything() {
@@ -108,12 +116,20 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
         ]));
   }
 
-  void onSizeChangedl(List<String> sizes) {
+  void onSizeChanged(List<String> sizes) {
     state = state.copyWith(sizes: sizes);
   }
 
   void onGenderChanged(String gender) {
     state = state.copyWith(gender: gender);
+  }
+
+  void onDescriptionChanged(String description) {
+    state = state.copyWith(description: description);
+  }
+
+  void onTagsChanged(String tags) {
+    state = state.copyWith(tags: tags);
   }
 }
 
