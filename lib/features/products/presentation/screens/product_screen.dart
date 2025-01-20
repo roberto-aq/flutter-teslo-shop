@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teslo_shop_app/features/products/domain/domain.dart';
 import 'package:teslo_shop_app/features/products/presentation/providers/providers.dart';
+import 'package:teslo_shop_app/features/shared/shared.dart';
 import 'package:teslo_shop_app/features/shared/widgets/widgets.dart';
 
 class ProductScreen extends ConsumerWidget {
@@ -27,8 +28,23 @@ class ProductScreen extends ConsumerWidget {
           title: Text(productState.product?.title ?? ''),
           actions: [
             IconButton(
+                onPressed: () async {
+                  final photoPath =
+                      await CameraGalleryServiceImpl().SelectPhoto();
+                  if (photoPath == null) return;
+
+                  photoPath;
+                },
+                icon: const Icon(Icons.photo_library_outlined)),
+            IconButton(
               icon: const Icon(Icons.camera_alt_outlined),
-              onPressed: () {},
+              onPressed: () async {
+                final photoPath =
+                    await CameraGalleryServiceImpl().takePhoto();
+                if (photoPath == null) return;
+
+                photoPath;
+              },
             )
           ],
         ),
