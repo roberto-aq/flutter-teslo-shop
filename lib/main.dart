@@ -21,7 +21,7 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp.router(
       routerConfig: appRouter,
-      title: 'Flutter Demo',
+      title: 'TesloShop App Test',
       theme: AppTheme().getTheme(),
       debugShowCheckedModeBanner: false,
     );
